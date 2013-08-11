@@ -20,12 +20,16 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     self.now.text = @"FUGA";
-    [self runTheClock];
+    [self updateNowDisplay];
+    //[self runTheClock];
 }
 
 -(void)updateNowDisplay
 {
     /* 日付を取得する */
+    // よくわからんが、GoodMAppDelegate.mで登録してるNSTimerがコレを呼んでいる...
+    // GoodMAppDelegate.mで宣言したcheckTimerを呼んで欲しいのだが...
+    NSLog(@"updateNowDisplayUnko");
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"YYYY/MM/dd HH:mm:ss"];
     NSDate *date = [NSDate date];
@@ -33,14 +37,16 @@
     
     self.now.text = dateStr;
 }
+
 -(void)runTheClock
 {
     [NSTimer scheduledTimerWithTimeInterval: 0.5
 											 target: self
 										   selector:@selector(updateNowDisplay)
 										   userInfo: nil
-											repeats: YES];  
+											repeats: YES];
 }
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

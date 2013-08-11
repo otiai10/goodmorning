@@ -24,13 +24,39 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+    NSLog(@"applicationDidEnterBackground");
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    NSDate *date = [NSDate date];
+    NSTimeInterval t = 3;
+    self.period = [date dateByAddingTimeInterval:t];
+
+    UIApplication *app = [UIApplication sharedApplication];
+    self.bgtask = [app beginBackgroundTaskWithExpirationHandler:^{
+        [NSTimer scheduledTimerWithTimeInterval: 0.5 target: self selector: @selector(checkTimer) userInfo: nil repeats: YES];
+    }];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
-{
+{   
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    UIApplication *app = [UIApplication sharedApplication];
+    [app endBackgroundTask: self.bgtask];
+}
+- (void)checkTimer
+{
+    
+    NSDate *date = [NSDate date];
+    if (date == self.period) {
+        UIAlertView *alert =
+        [[UIAlertView alloc] initWithTitle:@"( ﾟдﾟ )ｸﾜｯ!!" message:@"時間です" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil ];
+        [alert show];
+    }
+    NSLog(@"checkTimer");
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"YYYY/MM/dd HH:mm:ss"];
+    NSString *dateStr = [formatter stringFromDate:date];
+    NSLog(@"%@", dateStr);
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

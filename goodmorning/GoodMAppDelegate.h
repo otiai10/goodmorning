@@ -11,5 +11,7 @@
 @interface GoodMAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property UIBackgroundTaskIdentifier bgtask;
+@property NSDate *period;
 
 @end
