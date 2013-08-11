@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface GoodMViewController : UIViewController
+@property (strong, nonatomic) IBOutlet UILabel *now;
 
 @end
